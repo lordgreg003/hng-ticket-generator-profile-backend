@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -22,10 +23,10 @@ const transporter = nodemailer.createTransport({
 
 // Endpoint to send verification email
 app.post("/send-verification-email", async (req, res) => {
-  const { email, name, profilePhoto, selectedTicket, about } = req.body;
+  const { email, name } = req.body;
 
   // Validate request body
-  if (!email || !name || !profilePhoto || !selectedTicket || !about) {
+  if (!email || !name) {
     return res
       .status(400)
       .json({ success: false, message: "Email and name are required." });
@@ -46,7 +47,7 @@ If you have any questions or need assistance, feel free to reach out.
 Best regards,  
 The Delve Team  
 
-📅 Subscription Date: March 17, 2025 | 10:00 PM`,
+📅 Subscription Date: ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`,
   };
 
   try {
