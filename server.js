@@ -36,18 +36,26 @@ app.post("/send-verification-email", async (req, res) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Welcome to Delve - Subscription Confirmed!",
-    text: `Dear ${name}, 
-
-Thank you for subscribing to Delve! We're excited to have you on board. 
-
-Stay tuned for exclusive insights, updates, and curated content delivered straight to your inbox.
-
-If you have any questions or need assistance, feel free to reach out.
-
-Best regards,  
-The Delve Team  
-
-📅 Subscription Date: ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`,
+    html: `
+    <div style="text-align: center; font-family: Arial, sans-serif;">
+      <img src="https://res.cloudinary.com/dg8cmo2gb/image/upload/v1742306799/SUBSCRIPTION_MAIL_ou4oqt.jpg" 
+           alt="Subscription Confirmation" 
+           style="max-width: 100%; height: auto;">
+      <h2>Dear ${name},</h2>
+      <p>Thank you for subscribing to <strong>Delve</strong>! We're excited to have you on board.</p>
+      <p>Stay tuned for exclusive insights, updates, and curated content delivered straight to your inbox.</p>
+      <p>If you have any questions or need assistance, feel free to reach out.</p>
+      <br>
+      <p><strong>Best regards,</strong><br> The Delve Team</p>
+      <p>📅 Subscription Date: ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}</p>
+    </div>
+  `,
+    attachments: [
+      {
+        filename: "subscription.jpg",
+        path: "https://res.cloudinary.com/dg8cmo2gb/image/upload/v1742306799/SUBSCRIPTION_MAIL_ou4oqt.jpg",
+      },
+    ],
   };
 
   try {
