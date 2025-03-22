@@ -90,18 +90,27 @@ app.post("/send-message", async (req, res) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "New Message Received",
+    subject: "Welcome to Delve - Subscription Confirmed!",
     html: `
     <div style="text-align: center; font-family: Arial, sans-serif;">
+      <img src="https://res.cloudinary.com/dg8cmo2gb/image/upload/v1742306799/SUBSCRIPTION_MAIL_ou4oqt.jpg" 
+           alt="Subscription Confirmation" 
+           style="max-width: 100%; height: auto;">
       <h2>Dear ${name},</h2>
-      <p>Thank you for reaching out to us! We have received your message and will get back to you shortly.</p>
-      <p>Here is the message you sent:</p>
-      <p><strong>${message}</strong></p>
+      <p>Thank you for subscribing to <strong>Delve</strong>! We're excited to have you on board.</p>
+      <p>Stay tuned for exclusive insights, updates, and curated content delivered straight to your inbox.</p>
+      <p>If you have any questions or need assistance, feel free to reach out.</p>
       <br>
       <p><strong>Best regards,</strong><br> The Delve Team</p>
-      <p>📅 Message Received Date: ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}</p>
+      <p>📅 Subscription Date: ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}</p>
     </div>
   `,
+    attachments: [
+      {
+        filename: "subscription.jpg",
+        path: "https://res.cloudinary.com/dg8cmo2gb/image/upload/v1742306799/SUBSCRIPTION_MAIL_ou4oqt.jpg",
+      },
+    ],
   };
 
   try {
